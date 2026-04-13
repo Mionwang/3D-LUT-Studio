@@ -1,4 +1,4 @@
-# 3D LUT / EXR Studio
+# 3D LUT Studio
 
 A Python-based, high-precision 32-bit floating-point LUT generator and extractor. 
 
@@ -43,7 +43,7 @@ The workflow is broken down into three simple phases: Generate, Grade, and Extra
 3. **Render the result out as an OpenEXR image.**
 
 > **⚠️ CRITICAL DAVINCI RESOLVE SETTINGS:**
-> EXR files default to linear gamma. If your grade relies on a log color space (like DaVinci Wide Gamut / DaVinci Intermediate), ensure your delivery page **Output Color Space** does *not* accidentally bake a linear-to-log or Rec.709 gamma shift into the file. Furthermore, ensure the EXR export is explicitly set to **32-bit float** (*not* 16-bit half-float) to preserve the math.
+> EXR files default to linear gamma. Ensure the EXR export is explicitly set to **32-bit float** (*not* 16-bit half-float) to preserve the math.
 
 ### Phase 3: Extract the .cube LUT
 1. Back in the Python GUI, ensure your target grid density matches the file you just generated.
@@ -56,7 +56,7 @@ The workflow is broken down into three simple phases: Generate, Grade, and Extra
 
 ## ⚠️ Important Note on Massive LUTs (256-Point)
 
-Standard NLEs (Premiere, Resolve, Final Cut) are not designed to read half-gigabyte `.cube` files. If you attempt to load a 256-point LUT into DaVinci Resolve, the LUT parser may freeze, crash, or fallback to a lower-quality interpolation method. 
+Standard NLEs (Premiere, Resolve, Final Cut) are not necessarily designed to read half-gigabyte `.cube` files, though Resolve Studio on my workstation handles them just fine. If you attempt to load a 256-point LUT into DaVinci Resolve, the LUT parser may freeze, crash, or fallback to a lower-quality interpolation method.
 
 * If your goal is **real-time NLE grading**, stick to **64-point** or **144-point** and let the software's native 32-bit tetrahedral interpolation handle the gradients. 
 * **256-point LUTs** are strictly intended for data science, AI generation pipelines, or ground-truth tensor conversion where a GPU can load the massive matrix directly into VRAM.
@@ -73,5 +73,4 @@ You likely exported your EXR from Resolve with a color space transform applied o
 
 ---
 
-## 📄 License
-This project is open-source and available under the [MIT License](LICENSE).
+## 📄 I made it using Gemini. Use it for whatever you like. Don't sell it though.
